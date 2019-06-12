@@ -1,0 +1,106 @@
+body {
+margin: 0;
+font-family: "Verdana", sans-serif;
+background-color: rgb(255, 212, 218);
+}
+
+.header {
+    width: 100%;
+    color: white;
+    background-color: rgb(230, 180, 213);
+    text-align: center;
+    top: 0;
+    z-index: 1;
+    position: fixed;
+}
+
+.sidenav {
+    height: 100%;
+    width: 230px;
+    position: fixed;
+    left: 0;
+    z-index: 0;
+    background-color: rgb(243, 207, 231);
+    overflow-x: hidden;
+}
+
+.sidenav navcontent {
+    top: 35%;
+    position: relative;
+}
+
+.sidenav a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 22px;
+    color: #b66fac;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+    background-color: hotpink;
+}
+
+.sidenav a.active {
+    color: #f1f1f1;
+    background-color: hotpink;
+}
+
+.message{
+    font-size: 12px; /* Increased text to enable scrolling */
+    color: hotpink;
+    text-align: center;
+}
+
+.main {
+    margin-left: 230px;
+    padding-top: 15%;
+    font-size: 18px; /* Increased text to enable scrolling */
+    color: #b66fac;
+    text-align: center;
+}
+
+input{
+    border: none;
+    background-color: none;
+    border-radius: 3px;
+    color: #b66fac;
+    font-size: 16px;
+    width: 100%;
+}
+
+input[type=submit]{
+    margin-top: 50px;
+    font-size: 16px;
+    color: #b66fac;
+    border: 2px solid #b66fac;
+    border-radius: 3px;
+    width: 100px;
+}
+
+input[type=submit]:hover{
+    font-size: 16px;
+    color: #ff00bf;
+    border: 2px solid #ff00bf;
+    border-radius: 3px;
+    width: 100px;
+}
+
+input[type=submit]:disabled{
+    font-size: 16px;
+    color: grey;
+    border: 2px solid grey;
+    border-radius: 3px;
+    background-color: rgb(179, 195, 216);
+    width: 100px;
+    cursor: not-allowed;
+}
+
+form, form > label{
+    display: inline-block;
+    width: 300px;
+}
