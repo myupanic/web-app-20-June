@@ -1,12 +1,17 @@
 <?php
     include 'lib/utils.php';
+    session_start();
+    /*
     if(!isset($_SESSION['user'])){
         redirect("index.html");
     }
+    */
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+<script src="js/utils.js"></script>
 <title>Check In</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="./css/home.css">
@@ -28,21 +33,10 @@
         <?php
             $rows = 10;
             $columns = 6;
-            echo "<table>";
-            for ($i = 0; $i < $rows; $i++) {
-                echo "<tr>";
-                for($j = 0; $j < $columns; $j++){
-                    $car = chr(65+$j);
-                    $stringId = $car.($i+1);
-                    echo "<td>";
-                    //echo "<input type=\"checkbox\" id=\"$stringId\" />";
-                    echo "<span>$stringId</span>";
-                    echo "</td>";
-                }
-                echo "</tr>";
-            }
-            echo "</table>";
+            loadMap($rows, $columns);
         ?>
+        <input type="submit" id="update" value="Update" class="button" onclick="reload()">			
+        <input type="submit" id="buy" value="Buy" class="button" onclick="buy()">			
     </div>
 </div>
    

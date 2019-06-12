@@ -1,11 +1,14 @@
 <?php //signUp.php
 	include 'lib/utils.php';
 	include 'lib/check.php';
+	session_start();
 	
+	/*
 	// If logged user, redirect to home
 	if(isset($_SESSION['user'])){
 		redirect("home.php");
 	}
+	*/
 	httpsRedirect();
 
 	// If there has been an error

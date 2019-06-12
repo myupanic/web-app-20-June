@@ -2,11 +2,13 @@
 	include 'lib/utils.php';
     include 'lib/check.php';
 	session_start();
-    
+	
+	/*
 	// If logged user rediret
 	if(isset($_SESSION['user'])){
 		redirect("home.php");
-    }
+	}
+	*/
 		
 	// Retrieve parameters
 	$username=$_POST['username'];
@@ -17,8 +19,9 @@
 		$_SESSION=array();
 		$_SESSION['user']=$username;	
 		$_SESSION['time']=time();
+		echo $_SESSION['user'];
     	redirect("home.php");
 	}
 	// Error
-	redirect("login.php?msg=error");
+	//redirect("login.php?msg=error");
 ?>

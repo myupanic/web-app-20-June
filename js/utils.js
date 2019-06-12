@@ -24,3 +24,34 @@ function signUpCheckPswConstraints(){
         document.getElementById("submit").disabled = true;
     }
 }
+
+function checkSeat(cell){
+    AjaxReq = new XMLHttpRequest();
+    AjaxReq.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            changeColor(cell, this.responseText);
+        }
+    };
+    AjaxReq.open("GET", "book.php?cell=" + cell.id, true);
+    AjaxReq.send();
+}
+
+function changeColor(cell, color){
+    cell.style.backgroundColor = color;
+}
+
+function buy(){
+    AjaxReq = new XMLHttpRequest();
+    AjaxReq.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            changeColor(cell, this.responseText);
+        }
+    };
+    AjaxReq.open("GET", "book.php?cell=" + cell.id + "&buy=1", true);
+    AjaxReq.send();
+}
+
+function reload(){
+    window.open("home.php", "_parent");
+}

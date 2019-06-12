@@ -58,7 +58,8 @@ background-color: rgb(255, 212, 218);
 
 .main {
     margin-left: 230px;
-    padding-top: 15%;
+    padding-top: 10%;
+    padding-bottom: 10%;
     font-size: 18px; /* Increased text to enable scrolling */
     color: #b66fac;
     text-align: center;
@@ -74,7 +75,7 @@ input{
 }
 
 input[type=submit]{
-    margin-top: 50px;
+    margin-top: 25px;
     font-size: 16px;
     color: #b66fac;
     border: 2px solid #b66fac;
@@ -88,6 +89,7 @@ input[type=submit]:hover{
     border: 2px solid #ff00bf;
     border-radius: 3px;
     width: 100px;
+    cursor: pointer;
 }
 
 input[type=submit]:disabled{
@@ -104,3 +106,24 @@ form, form > label{
     display: inline-block;
     width: 300px;
 }
+
+.map{
+    width: 400px;
+    height: 550px;
+    margin-left: 30%;
+    background-color: white;
+}
+
+table{
+    font-size : 12px;
+    width: 100%;
+    border-spacing: 10px;
+}
+
+td{
+    color: black;
+    cursor: pointer;
+    padding: 10px 10px;
+    border-radius : 5px 5px;
+}
+

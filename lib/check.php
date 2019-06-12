@@ -4,8 +4,20 @@ echo "<noscript>";
 echo "Script must be enabled";
 echo "</noscript>";
 
-if(isset($_SESSION['user'])){
-	checkTime();
+function testCookie(){
+	if(!isset($_GET['cookie'])){
+		setcookie('test', 1, time()+3600);
+		if(isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING']!=""){
+			header('Location:'.$_SERVER['PHP_SELF'].'?cookie=true&'.$_SERVER['QUERY_STRING']);
+		}else{
+			header('Location:'.$_SERVER['PHP_SELF'].'?cookie=true');
+		}
+		
+	}else{
+		if(count($_COOKIE) <= 0){
+	    	header('Location: blockNavigation.php');
+		}
+	}	
 }
 
 // SIGNING UP FUNCTIONS
@@ -102,15 +114,6 @@ function logout(){
         );
     }
 	session_destroy();
-}
-
-function checkTime(){
-	$diff=time()-$_SESSION['time'];
-	logout();
-	if($diff>2*60){	
-		redirect('login.php?msg=timeout');
-	}
-	$_SESSION['time']=time();	
 }
 
 function httpsRedirect(){

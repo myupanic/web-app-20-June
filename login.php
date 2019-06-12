@@ -1,11 +1,14 @@
 <?php //login.php
 	include 'lib/utils.php';
 	include 'lib/check.php';
+	session_start();
 	
+	/*
 	// If logged user, redirect to home
 	if(isset($_SESSION['user'])){
 		redirect("home.php");
-  }
+	}
+	*/
 	httpsRedirect();
 	
 	// If there has been an error
@@ -34,7 +37,7 @@
   <navcontent>
   <a href="home.php">Home</a>
   <a class="active" href="login.php">Log in</a>
-  <a href="signup.php">Sign up</a>
+	<a href="signup.php">Sign up</a>
   </navcontent>
 </div>
 
