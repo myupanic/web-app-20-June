@@ -1,3 +1,5 @@
+var cellsToBook = 0;
+
 function enableDisableSubmit() {
     var regexMail = /\S+@\S+\.\S+/;
     var usernameMail = document.getElementById("username").value;
@@ -29,7 +31,13 @@ function checkSeat(cell){
     AjaxReq = new XMLHttpRequest();
     AjaxReq.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            //console.log(this.responseText);
+            if(this.responseText == "yellow"){
+                cellsToBook++;
+            }
+            else if(this.responseText == "green"){
+                cellsToBook--;
+            }
             changeColor(cell, this.responseText);
         }
     };
@@ -38,17 +46,22 @@ function checkSeat(cell){
 }
 
 function changeColor(cell, color){
-    cell.style.backgroundColor = color;
+    priority = null;
+    if(color == "red"){
+        cell.style.cursor = "not-allowed";
+        priority = "important";
+    }
+    cell.style.setProperty("background-color", color, priority);
 }
 
 function buy(){
     AjaxReq = new XMLHttpRequest();
     AjaxReq.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            changeColor(cell, this.responseText);
+            console.log("fine");
         }
     };
-    AjaxReq.open("GET", "book.php?cell=" + cell.id + "&buy=1", true);
+    AjaxReq.open("GET", "book.php?buy=1" + "&ncells=" + cellsToBook, true);
     AjaxReq.send();
 }
 

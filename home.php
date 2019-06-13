@@ -23,8 +23,7 @@
 <div class="sidenav">
   <navcontent>
   <a class="active" href="home.php">Home</a>
-  <a href="login.php">Log in</a>
-  <a href="signup.php">Sign up</a>
+  <a href="logout.php">Log out</a>
   </navcontent>
 </div>
 

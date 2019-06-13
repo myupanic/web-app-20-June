@@ -25,7 +25,7 @@ background-color: rgb(255, 212, 218);
 }
 
 .sidenav navcontent {
-    top: 35%;
+    top: 230px;
     position: relative;
 }
 
@@ -50,7 +50,7 @@ background-color: rgb(255, 212, 218);
     background-color: hotpink;
 }
 
-.message{
+.message {
     font-size: 12px; /* Increased text to enable scrolling */
     color: hotpink;
     text-align: center;
@@ -65,25 +65,26 @@ background-color: rgb(255, 212, 218);
     text-align: center;
 }
 
-input{
+input {
     border: none;
     background-color: none;
     border-radius: 3px;
-    color: #b66fac;
+    color: #eb97df;
     font-size: 16px;
     width: 100%;
 }
 
-input[type=submit]{
+input[type=submit] {
     margin-top: 25px;
     font-size: 16px;
-    color: #b66fac;
-    border: 2px solid #b66fac;
+    color: #eb97df;
+    background-color: white;
+    border: 2px solid #eb97df;
     border-radius: 3px;
     width: 100px;
 }
 
-input[type=submit]:hover{
+input[type=submit]:hover {
     font-size: 16px;
     color: #ff00bf;
     border: 2px solid #ff00bf;
@@ -92,7 +93,7 @@ input[type=submit]:hover{
     cursor: pointer;
 }
 
-input[type=submit]:disabled{
+input[type=submit]:disabled {
     font-size: 16px;
     color: grey;
     border: 2px solid grey;
@@ -102,28 +103,34 @@ input[type=submit]:disabled{
     cursor: not-allowed;
 }
 
-form, form > label{
+form, form > label {
     display: inline-block;
     width: 300px;
 }
 
-.map{
+.map {
     width: 400px;
     height: 550px;
     margin-left: 30%;
     background-color: white;
 }
 
-table{
+table {
     font-size : 12px;
     width: 100%;
     border-spacing: 10px;
 }
 
-td{
+td {
     color: black;
+    background-color: lightgreen;
     cursor: pointer;
     padding: 10px 10px;
     border-radius : 5px 5px;
+    border: 1px solid white;
 }
 
+td:hover {
+    background-color: rgb(195, 255, 127) !important;
+    border: 1px solid black !important;
+}
