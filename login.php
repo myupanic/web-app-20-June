@@ -30,12 +30,10 @@
 <link rel="stylesheet" type="text/css" href="./css/home.css">
 </head>
 <body onload="enableDisableSubmit()">
-<div class="header">
-  <h2>PinkPlane</h2>
-</div>
+<?php loadHeader()?>
 <div class="sidenav">
   <navcontent>
-  <a href="home.php">Home</a>
+  <a href="index.php">Home</a>
   <a class="active" href="login.php">Log in</a>
 	<a href="signup.php">Sign up</a>
   </navcontent>

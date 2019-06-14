@@ -16,14 +16,12 @@
 <html>
 <head>
 <script src="js/utils.js"></script>
-<title>Check In</title>
+<title>Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="./css/home.css">
 </head>
 <body>
-<div class="header">
-  <h2>PinkPlane</h2>
-</div>
+<?php loadHeader()?>
 <div class="sidenav">
   <navcontent>
   <a class="active" href="home.php">Home</a>

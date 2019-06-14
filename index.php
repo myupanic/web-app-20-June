@@ -11,9 +11,7 @@
 <link rel="stylesheet" type="text/css" href="./css/home.css">
 </head>
 <body>
-<div class="header">
-  <h2>Plane - Check in</h2>
-</div>
+<?php loadHeader()?>
 <div class="sidenav">
   <navcontent>
   <a class="active" href="index.php">Home</a>
