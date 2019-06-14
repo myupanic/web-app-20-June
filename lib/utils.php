@@ -43,7 +43,7 @@ function loadMap(){
 		for ($i = 0; $i < $rows; $i++) {
 			echo "<tr>";
 			for($j = 0; $j < $columns; $j++){
-				if( ($j+1) == $columns / 2){
+				if( ($j) == $columns / 2){
 					echo "<td></td><td></td>";
 				}
 				$car = chr(65+$j);

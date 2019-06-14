@@ -13,12 +13,13 @@
 <body>
 <?php loadHeader()?>
 <div class="sidenav">
-  <navcontent>
+  <div class="navcontent">
   <a class="active" href="index.php">Home</a>
   <a href="login.php">Log in</a>
   <a href="signup.php">Sign up</a>
-  </navcontent>
+  </div>
 </div>
+
 
 <div class="main">
     <div class="map"> 

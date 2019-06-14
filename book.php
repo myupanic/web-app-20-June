@@ -116,6 +116,7 @@
             return false;
         }
         $query = "UPDATE BOOKING SET Status = ? WHERE Username = ?";
+        echo $query;
         $status_new = 'P';
         if ($stmt = mysqli_prepare($conn, $query)) {
             mysqli_stmt_bind_param($stmt, "ss", $status_new, $user_logged);

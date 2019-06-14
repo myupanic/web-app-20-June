@@ -32,12 +32,13 @@
 <body onload="enableDisableSubmit()">
 <?php loadHeader()?>
 <div class="sidenav">
-  <navcontent>
+<div class="navcontent">
   <a href="index.php">Home</a>
   <a class="active" href="login.php">Log in</a>
-	<a href="signup.php">Sign up</a>
-  </navcontent>
+  <a href="signup.php">Sign up</a>
 </div>
+</div>
+
 
 <div class="main">
     <form method="POST" action="login_post.php">	

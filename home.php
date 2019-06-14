@@ -23,11 +23,12 @@
 <body>
 <?php loadHeader()?>
 <div class="sidenav">
-  <navcontent>
+<div class="navcontent">
   <a class="active" href="home.php">Home</a>
   <a href="logout.php">Log out</a>
-  </navcontent>
 </div>
+</div>
+
 
 <div class="main">
     <div class="map">

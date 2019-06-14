@@ -32,12 +32,13 @@
 <body onload="signUpCheckPswConstraints()">
 <?php loadHeader()?>
 <div class="sidenav">
-  <navcontent>
-  <a href="index.php">Home</a>
-  <a href="login.php">Log in</a>
-  <a class="active" href="signup.php">Sign up</a>
-  </navcontent>
+<div class="navcontent">
+ 	<a href="index.php">Home</a>
+  	<a href="login.php">Log in</a>
+	<a class="active" href="signup.php">Sign up</a>
 </div>
+</div>
+
 
 <div class="main">
     <form method="POST" action="signup_post.php">			
