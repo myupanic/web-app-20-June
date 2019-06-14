@@ -51,6 +51,7 @@
         else{
             return false;
         }
+        return true;
     }
 
     function reserve(){
@@ -73,6 +74,7 @@
         else{
             return false;
         }
+        return true;
     }
 
     function removeReservation(){
@@ -93,6 +95,7 @@
         else{
             return false;
         }
+        return true;
     }
 
     function purchaseSeats(){
@@ -139,6 +142,7 @@
         else{
             return false;
         }
+        return true;
     }
 
 ?>

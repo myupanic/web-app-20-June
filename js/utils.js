@@ -35,7 +35,7 @@ function checkSeat(cell){
             if(this.responseText == "yellow"){
                 cellsToBook++;
             }
-            else if(this.responseText == "green"){
+            else if(this.responseText == "lightgreen"){
                 cellsToBook--;
             }
             if(cellsToBook == 0){
@@ -65,10 +65,10 @@ function buy(){
     AjaxReq.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             //cellsToBook = 0;
-            //reload();
             if(this.responseText == "error"){
                 window.open("home.php?msg=error", "_parent");
             }
+            reload();
         }
     };
     AjaxReq.open("GET", "book.php?buy=1" + "&ncells=" + cellsToBook, true);

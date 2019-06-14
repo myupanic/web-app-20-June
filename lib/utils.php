@@ -16,7 +16,7 @@ function loadHeader(){
 	echo "<link href='https://fonts.googleapis.com/css?family=Bad Script' rel='stylesheet'>";
 	echo "<link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>";
 	echo "<div class=\"header\">";
-	echo "<h1>Pink Airways</h1>";
+	echo "<h1>Pink Airways<img src=\"images/logo.png\"></img></h1>";
 	echo "</div>";
 }
 
@@ -90,7 +90,7 @@ function loadMapForVisitor(){
 	$conn = connectDB();
 	$query = "SELECT Status FROM booking WHERE SeatId=?";
 	if ($stmt = mysqli_prepare($conn, $query)) {
-		echo "<table>";
+		echo "<p></p><table>";
 		for ($i = 0; $i < $rows; $i++) {
 			echo "<tr>";
 			for($j = 0; $j < $columns; $j++){

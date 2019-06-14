@@ -1,11 +1,9 @@
 <?php
     include 'lib/utils.php';
     session_start();
-    /*
     if(!isset($_SESSION['user'])){
         redirect("index.php");
     }
-    */
     $errorText = "";
     if(isset($_GET['msg'])){
 		$errorText="An error occurred while purchasing seats, try again";
@@ -31,13 +29,16 @@
 
 
 <div class="main">
+<div class="hello-user">
+<?php $user = $_SESSION['user']; echo "<p>Hello, $user</p>";?>
+</div>
     <div class="map">
         <?php
             echo "<p>$errorText</p>";
             loadMap();
         ?>
-        <input type="submit" id="update" value="Update" class="button" onclick="reload()">			
-        <input type="submit" id="buy" value="Buy" class="button" onclick="buy()">			
+        <input type="submit" id="update" value="Update" class="button" onclick="reload()">	
+        <input type="submit" id="buy" value="Buy" class="button" onclick="buy()" disabled="true">			
     </div>
 </div>
    
