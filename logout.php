@@ -3,5 +3,5 @@
     include 'lib/utils.php';
 
     logout();
-    redirect("index.html");	
+    redirect("index.php");	
 ?>

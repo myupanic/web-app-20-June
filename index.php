@@ -1,5 +1,6 @@
 <?php
   include 'lib/utils.php';
+  include 'lib/check.php';
 ?>
 <!DOCTYPE html>
 <html>

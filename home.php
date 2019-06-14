@@ -6,6 +6,7 @@
         redirect("index.php");
     }
     */
+	$errorText = "";
     if(isset($_GET['msg'])){
 		$errorText="An error occurred while purchasing seats, try again";
     }
