@@ -1,8 +1,8 @@
 <?php
 
-echo "<noscript>";
-echo "Script must be enabled";
-echo "</noscript>";
+//echo "<noscript>";
+//echo "Script must be enabled";
+//echo "</noscript>";
 
 function testCookie(){
 	if(!isset($_GET['cookie'])){
@@ -41,7 +41,7 @@ function checkEmail($username){
 function checkUsername($username){
 	$conn=connectDB();	
 	$res=null;
-	$query = "SELECT * FROM USER where username=?";
+	$query = "SELECT * FROM user WHERE Username=?";
 	if ($stmt = mysqli_prepare($conn, $query)) {
 		mysqli_stmt_bind_param($stmt, "s", $username);
 		if(!mysqli_stmt_execute($stmt)){
@@ -63,7 +63,7 @@ function checkUsername($username){
 // Inserts a new user
 function insertUser($username, $psw){
     $conn=connectDB();
-	$query="INSERT USER(username, password) VALUES (?,?)";
+	$query="INSERT user(Username, Password) VALUES (?,?)";
 	if($stmt = mysqli_prepare($conn, $query)){
 		if(!$hash=password_hash($psw, PASSWORD_DEFAULT)){
 			mysqli_close($conn);
@@ -87,8 +87,10 @@ function insertUser($username, $psw){
 
 function login($username, $psw){
 	$conn=connectDB();
-    $query = "SELECT password FROM USER where username=?";
+    $query = "SELECT Password FROM user WHERE Username=?";
+	echo $query;
 	if ($stmt = mysqli_prepare($conn, $query)) {
+		echo $username;
 		mysqli_stmt_bind_param($stmt, "s", $username);
 		if(!mysqli_stmt_execute($stmt)){
 			return false;
@@ -119,7 +121,7 @@ function logout(){
 function httpsRedirect(){
 	if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS']==='off'){
 		$redirect_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-	    header("Location: $redirect_url");
+	    header("Location: $redirect_url", true, 301);
 	    exit();
 	}	
 }

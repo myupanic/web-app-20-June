@@ -1,11 +1,15 @@
 <?php 
 $dbhost  = 'localhost';    
 $dbname  = 's265444'; 
-$dbuser  = 'root';     
-$dbpass  = '';     
+$dbuser  = 's265444';     
+$dbpass  = 'caviston';     
 $appname = "CheckIn"; 
 $rows = 10;
 $columns = 6;
+
+error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
 
 function redirect($location){
 	header('Location: '.$location);
@@ -24,41 +28,39 @@ function connectDB(){
 function loadMap(){
 	global $rows, $columns;
 	$conn = connectDB();
-	$query = "SELECT status, username FROM BOOKING where seatid=?";
+	$query = "SELECT Status, Username FROM booking where SeatId=?";
 	if ($stmt = mysqli_prepare($conn, $query)) {
 		echo "<table>";
 		for ($i = 0; $i < $rows; $i++) {
 			echo "<tr>";
 			for($j = 0; $j < $columns; $j++){
 				if( ($j+1) == $columns / 2){
-					echo "<td></td>";
+					echo "<td></td><td></td>";
+				}
+				$car = chr(65+$j);
+				$stringId = $car.($i+1);
+				mysqli_stmt_bind_param($stmt, "s", $stringId);
+				if(!mysqli_stmt_execute($stmt)){
+					return false;
+				}
+				mysqli_stmt_bind_result($stmt, $status, $user);
+				mysqli_stmt_fetch($stmt);
+				echo "<td class=\"seat\" onclick=\"checkSeat($stringId)\" id=\"$stringId\">";
+				echo "$stringId";
+				echo "</td>";
+				if($status == null){
+					$color = "lightgreen";
+				}
+				else if($status == 'P'){
+					$color = "red";
+				}
+				else if($status == 'R' && $user != $_SESSION['user']){
+					$color = "orange";
 				}
 				else{
-					$car = chr(65+$j);
-					$stringId = $car.($i+1);
-					mysqli_stmt_bind_param($stmt, "s", $stringId);
-					if(!mysqli_stmt_execute($stmt)){
-						return false;
-					}
-					mysqli_stmt_bind_result($stmt, $status, $user);
-					mysqli_stmt_fetch($stmt);
-					echo "<td class=\"seat\" onclick=\"checkSeat($stringId)\" id=\"$stringId\">";
-					echo "$stringId";
-					echo "</td>";
-					if($status == null){
-						$color = "lightgreen";
-					}
-					else if($status == 'P'){
-						$color = "red";
-					}
-					else if($status == 'R' && $user != $_SESSION['user']){
-						$color = "orange";
-					}
-					else{
-						$color = "yellow";
-					}
-					echo "<script>changeColor($stringId, \"$color\")</script>";
+					$color = "yellow";
 				}
+				echo "<script>changeColor($stringId, \"$color\")</script>";
 			}
 			echo "</tr>";
 		}
@@ -77,7 +79,7 @@ function loadMapForVisitor(){
 	$reserved_seats = 0;
 	$purchased_seats = 0;
 	$conn = connectDB();
-	$query = "SELECT status FROM BOOKING where seatid=?";
+	$query = "SELECT Status FROM booking WHERE SeatId=?";
 	if ($stmt = mysqli_prepare($conn, $query)) {
 		echo "<table>";
 		for ($i = 0; $i < $rows; $i++) {
