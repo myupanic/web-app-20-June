@@ -3,9 +3,12 @@
     session_start();
     /*
     if(!isset($_SESSION['user'])){
-        redirect("index.html");
+        redirect("index.php");
     }
     */
+    if(isset($_GET['msg'])){
+		$errorText="An error occurred while purchasing seats, try again";
+    }
 
 ?>
 <!DOCTYPE html>
@@ -30,9 +33,8 @@
 <div class="main">
     <div class="map">
         <?php
-            $rows = 10;
-            $columns = 6;
-            loadMap($rows, $columns);
+            echo $errorText;
+            loadMap();
         ?>
         <input type="submit" id="update" value="Update" class="button" onclick="reload()">			
         <input type="submit" id="buy" value="Buy" class="button" onclick="buy()">			

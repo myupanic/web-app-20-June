@@ -38,6 +38,12 @@ function checkSeat(cell){
             else if(this.responseText == "green"){
                 cellsToBook--;
             }
+            if(cellsToBook == 0){
+                document.getElementById("buy").disabled = true;
+            }
+            else{
+                document.getElementById("buy").disabled = false;
+            }
             changeColor(cell, this.responseText);
         }
     };
@@ -58,7 +64,7 @@ function buy(){
     AjaxReq = new XMLHttpRequest();
     AjaxReq.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log("fine");
+            reload();
         }
     };
     AjaxReq.open("GET", "book.php?buy=1" + "&ncells=" + cellsToBook, true);

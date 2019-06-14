@@ -4,8 +4,11 @@
 
     $conn = connectDB();
 
+
     if(isset($_REQUEST['buy'])){
-        purchaseSeats($conn);
+        if(!purchaseSeats($conn)){
+            redirect("home.php?msg=error");
+        }
     }
     else if(isset($_REQUEST['cell'])){
         checkStatusSeat($conn);
@@ -69,7 +72,6 @@
         $conn->autocommit(FALSE);
         $conn->begin_transaction();
         $query = "DELETE FROM BOOKING WHERE SeatId = ? AND Username = ?";
-        $status_new = 'R';
         if ($stmt = mysqli_prepare($conn, $query)) {
             mysqli_stmt_bind_param($stmt, "ss", $id, $user_logged);
             if(!mysqli_stmt_execute($stmt)){
@@ -88,6 +90,31 @@
         $user_logged = $_SESSION['user'];
         $conn->autocommit(FALSE);
         $conn->begin_transaction();
+        $query = "SELECT COUNT(*) FROM BOOKING WHERE Username = ? AND Status = 'R'";
+        if ($stmt = mysqli_prepare($conn, $query)) {
+            mysqli_stmt_bind_param($stmt, "s", $user_logged);
+            if(!mysqli_stmt_execute($stmt)){
+                return false;
+            }
+            mysqli_stmt_bind_result($stmt, $n_reserved);
+            mysqli_stmt_fetch($stmt);
+            mysqli_stmt_close($stmt);
+            if($n_reserved != n_cells){
+                $query = "DELETE FROM BOOKING WHERE Username = ? AND Status = 'R'";
+                if ($stmt = mysqli_prepare($conn, $query)) {
+                    mysqli_stmt_bind_param($stmt, "s", $user_logged);
+                    if(!mysqli_stmt_execute($stmt)){
+                        return false;
+                    }
+                    mysqli_stmt_close($stmt);
+                }
+                return false;
+            }
+            $conn->commit();
+        }
+        else{
+            return false;
+        }
         $query = "UPDATE BOOKING SET Status = ? WHERE Username = ?";
         $status_new = 'P';
         if ($stmt = mysqli_prepare($conn, $query)) {

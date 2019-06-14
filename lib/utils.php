@@ -4,6 +4,8 @@ $dbname  = 's265444';
 $dbuser  = 'root';     
 $dbpass  = '';     
 $appname = "CheckIn"; 
+$rows = 10;
+$columns = 6;
 
 function redirect($location){
 	header('Location: '.$location);
@@ -19,7 +21,8 @@ function connectDB(){
 	return $conn;
 }
 
-function loadMap($rows, $columns){
+function loadMap(){
+	global $rows, $columns;
 	$conn = connectDB();
 	$query = "SELECT status, username FROM BOOKING where seatid=?";
 	if ($stmt = mysqli_prepare($conn, $query)) {
@@ -27,30 +30,35 @@ function loadMap($rows, $columns){
 		for ($i = 0; $i < $rows; $i++) {
 			echo "<tr>";
 			for($j = 0; $j < $columns; $j++){
-				$car = chr(65+$j);
-				$stringId = $car.($i+1);
-				mysqli_stmt_bind_param($stmt, "s", $stringId);
-				if(!mysqli_stmt_execute($stmt)){
-					return false;
-				}
-				mysqli_stmt_bind_result($stmt, $status, $user);
-				mysqli_stmt_fetch($stmt);
-				echo "<td onclick=\"checkSeat($stringId)\" id=\"$stringId\">";
-				echo "$stringId";
-				echo "</td>";
-				if($status == null){
-					$color = "lightgreen";
-				}
-				else if($status == 'P'){
-					$color = "red";
-				}
-				else if($status == 'R' && $user != $_SESSION['user']){
-					$color = "orange";
+				if( ($j+1) == $columns / 2){
+					echo "<td></td>";
 				}
 				else{
-					$color = "yellow";
+					$car = chr(65+$j);
+					$stringId = $car.($i+1);
+					mysqli_stmt_bind_param($stmt, "s", $stringId);
+					if(!mysqli_stmt_execute($stmt)){
+						return false;
+					}
+					mysqli_stmt_bind_result($stmt, $status, $user);
+					mysqli_stmt_fetch($stmt);
+					echo "<td class=\"seat\" onclick=\"checkSeat($stringId)\" id=\"$stringId\">";
+					echo "$stringId";
+					echo "</td>";
+					if($status == null){
+						$color = "lightgreen";
+					}
+					else if($status == 'P'){
+						$color = "red";
+					}
+					else if($status == 'R' && $user != $_SESSION['user']){
+						$color = "orange";
+					}
+					else{
+						$color = "yellow";
+					}
+					echo "<script>changeColor($stringId, \"$color\")</script>";
 				}
-				echo "<script>changeColor($stringId, \"$color\")</script>";
 			}
 			echo "</tr>";
 		}
@@ -61,5 +69,70 @@ function loadMap($rows, $columns){
 		return false;
 	}
 	mysqli_close($conn);
+}
+
+function loadMapForVisitor(){
+	global $rows, $columns;
+	$total_seats = $rows * $columns;
+	$reserved_seats = 0;
+	$purchased_seats = 0;
+	$conn = connectDB();
+	$query = "SELECT status FROM BOOKING where seatid=?";
+	if ($stmt = mysqli_prepare($conn, $query)) {
+		echo "<table>";
+		for ($i = 0; $i < $rows; $i++) {
+			echo "<tr>";
+			for($j = 0; $j < $columns; $j++){
+				if( ($j) == $columns / 2){
+					echo "<td></td><td></td>";
+				}
+				$car = chr(65+$j);
+				$stringId = $car.($i+1);
+				mysqli_stmt_bind_param($stmt, "s", $stringId);
+				if(!mysqli_stmt_execute($stmt)){
+					return false;
+				}
+				mysqli_stmt_bind_result($stmt, $status);
+				mysqli_stmt_fetch($stmt);
+				echo "<td class=\"seat\" id=\"$stringId\">";
+				echo "$stringId";
+				echo "</td>";
+				if($status == null){
+					$color = "lightgreen";
+				}
+				else if($status == 'P'){
+					$color = "red";
+					$purchased_seats++;
+				}
+				else if($status == 'R'){
+					$color = "orange";
+					$reserved_seats++;
+				}
+				echo "<script>changeColor($stringId, \"$color\")</script>";
+			}
+			echo "</tr>";
+		}
+		echo "</table>";
+		mysqli_stmt_close($stmt);
+	}
+	else {
+		return false;
+	}	
+	mysqli_close($conn);
+	$free_seats = $total_seats - ($purchased_seats + $reserved_seats);
+	echo "<table class=\"counter\">";
+	echo "<tr>";
+	echo "<th>Total seats</th>";
+	echo "<th>Reserved seats</th>";
+	echo "<th>Purchased seats</th>";
+	echo "<th>Free seats</th>";
+	echo "</tr>";
+	echo "<tr>";
+	echo "<td>$total_seats</td>";
+	echo "<td>$reserved_seats</td>";
+	echo "<td>$purchased_seats</td>";
+	echo "<td>$free_seats</td>";
+	echo "</tr>";
+	echo "</table>";
 }
 ?>
