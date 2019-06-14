@@ -64,7 +64,11 @@ function buy(){
     AjaxReq = new XMLHttpRequest();
     AjaxReq.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            reload();
+            //cellsToBook = 0;
+            //reload();
+            if(this.responseText == "error"){
+                window.open("home.php?msg=error", "_parent");
+            }
         }
     };
     AjaxReq.open("GET", "book.php?buy=1" + "&ncells=" + cellsToBook, true);

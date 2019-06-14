@@ -6,7 +6,7 @@
         redirect("index.php");
     }
     */
-	$errorText = "";
+    $errorText = "";
     if(isset($_GET['msg'])){
 		$errorText="An error occurred while purchasing seats, try again";
     }
@@ -33,7 +33,7 @@
 <div class="main">
     <div class="map">
         <?php
-            echo $errorText;
+            echo "<p>$errorText</p>";
             loadMap();
         ?>
         <input type="submit" id="update" value="Update" class="button" onclick="reload()">			

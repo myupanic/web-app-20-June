@@ -6,11 +6,11 @@ $dbpass  = 'caviston';
 $rows = 10;
 $columns = 6;
 
-
+/*
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
-
+*/
 
 function loadHeader(){
 	echo "<link href='https://fonts.googleapis.com/css?family=Bad Script' rel='stylesheet'>";
