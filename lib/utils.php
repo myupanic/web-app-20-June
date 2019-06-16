@@ -5,19 +5,31 @@ $dbuser  = 's265444';
 $dbpass  = 'caviston';     
 $rows = 10;
 $columns = 6;
+$timeout = 120;
 
-/*
+
+
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
-*/
+
 
 function loadHeader(){
+	echo "<noscript>
+    <p style=\"margin-top: 100px; margin-left: 200px\">Javascript must be enabled.</p>
+		</noscript>";
 	echo "<link href='https://fonts.googleapis.com/css?family=Bad Script' rel='stylesheet'>";
 	echo "<link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>";
 	echo "<div class=\"header\">";
 	echo "<h1>Pink Airways<img src=\"images/logo.png\"></img></h1>";
 	echo "</div>";
+	echo "<script>
+	testCookies();
+	$(document).ready(function () {
+	  $(\".main\").css(\"display\", \"block\");
+	});
+	</script>";
+	echo "<p style=\"margin-top: 100px; margin-left: 200px; display: none\" id=\"cookies-dis\">Cookies must be enabled</p>";
 }
 
 function redirect($location){
@@ -36,6 +48,7 @@ function connectDB(){
 
 function loadMap(){
 	global $rows, $columns;
+	$n_reserved = 0;
 	$conn = connectDB();
 	$query = "SELECT Status, Username FROM booking where SeatId=?";
 	if ($stmt = mysqli_prepare($conn, $query)) {
@@ -67,9 +80,10 @@ function loadMap(){
 					$color = "orange";
 				}
 				else{
+					$n_reserved++;
 					$color = "yellow";
 				}
-				echo "<script>changeColor($stringId, \"$color\")</script>";
+				echo "<script>window.cellsToBook = $n_reserved; changeColor($stringId, \"$color\");</script>";
 			}
 			echo "</tr>";
 		}

@@ -1,25 +1,5 @@
 <?php
 
-//echo "<noscript>";
-//echo "Script must be enabled";
-//echo "</noscript>";
-
-function testCookie(){
-	if(!isset($_GET['cookie'])){
-		setcookie('test', 1, time()+3600);
-		if(isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING']!=""){
-			header('Location:'.$_SERVER['PHP_SELF'].'?cookie=true&'.$_SERVER['QUERY_STRING']);
-		}else{
-			header('Location:'.$_SERVER['PHP_SELF'].'?cookie=true');
-		}
-		
-	}else{
-		if(count($_COOKIE) <= 0){
-	    	header('Location: blockNavigation.php');
-		}
-	}	
-}
-
 // SIGNING UP FUNCTIONS
 // Check the correctness of the password in the registration form
 function checkPsw($psw1, $psw2){
@@ -88,22 +68,26 @@ function insertUser($username, $psw){
 function login($username, $psw){
 	$conn=connectDB();
     $query = "SELECT Password FROM user WHERE Username=?";
-	echo $query;
 	if ($stmt = mysqli_prepare($conn, $query)) {
-		echo $username;
 		mysqli_stmt_bind_param($stmt, "s", $username);
 		if(!mysqli_stmt_execute($stmt)){
 			return false;
 		}
 		mysqli_stmt_bind_result($stmt, $stored);
-	    mysqli_stmt_fetch($stmt);	
-	    $res=password_verify($psw, $stored);
+		mysqli_stmt_fetch($stmt);	
+		echo $stored;
+		var_dump($stored);
+		$res=password_verify($psw, $stored);
+		if($res != 1){
+			return false;
+		}
 		mysqli_stmt_close($stmt);
 	}else {
 		return false;
 	}
+	setcookie("time", time(), 0, "/");
 	mysqli_close($conn);
-	return $res;
+	return true;
 }
 
 // Does the logout, destroying cookies and session

@@ -16,10 +16,10 @@
 	
 	// Check if the password matches the username
 	if(login($username, $psw)){
+		echo "log";
 		$_SESSION=array();
 		$_SESSION['user']=$username;	
 		$_SESSION['time']=time();
-		echo $_SESSION['user'];
     	redirect("home.php");
 	}
 	// Error

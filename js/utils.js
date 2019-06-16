@@ -1,4 +1,3 @@
-var cellsToBook = 0;
 
 function enableDisableSubmit() {
     var regexMail = /\S+@\S+\.\S+/;
@@ -33,16 +32,10 @@ function checkSeat(cell){
         if (this.readyState == 4 && this.status == 200) {
             //console.log(this.responseText);
             if(this.responseText == "yellow"){
-                cellsToBook++;
-            }
-            else if(this.responseText == "lightgreen"){
-                cellsToBook--;
-            }
-            if(cellsToBook == 0){
-                document.getElementById("buy").disabled = true;
+                window.cellsToBook++;
             }
             else{
-                document.getElementById("buy").disabled = false;
+                window.cellsToBook--;
             }
             changeColor(cell, this.responseText);
         }
@@ -52,7 +45,7 @@ function checkSeat(cell){
 }
 
 function changeColor(cell, color){
-    priority = null;
+    var priority = null;
     if(color == "red"){
         cell.style.cursor = "not-allowed";
         priority = "important";
@@ -64,17 +57,30 @@ function buy(){
     AjaxReq = new XMLHttpRequest();
     AjaxReq.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            //cellsToBook = 0;
+            window.cellsToBook = 0;
             if(this.responseText == "error"){
                 window.open("home.php?msg=error", "_parent");
             }
+            console.log("buy: " + window.cellsToBook);
             reload();
         }
     };
-    AjaxReq.open("GET", "book.php?buy=1" + "&ncells=" + cellsToBook, true);
+    AjaxReq.open("GET", "book.php?buy=1" + "&ncells=" + window.cellsToBook, true);
     AjaxReq.send();
 }
 
 function reload(){
     window.open("home.php", "_parent");
+}
+
+function testCookies(){
+    document.cookie = 'cookietest=1';
+    var cookiesEnabled = document.cookie.indexOf('cookietest=') !== -1;
+    document.cookie = 'cookietest=1; expires=Thu, 01-Jan-1970 00:00:01 GMT';
+    if(!cookiesEnabled){
+        $(document).ready(function(){
+            $("#main").css("display", "none");
+            $("#cookies-dis").css("display", "block");
+        });
+    }
 }
