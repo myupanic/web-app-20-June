@@ -28,11 +28,6 @@ function loadHeader(){
 	testCookies()
 	</script>
 	<p class="err-msg" id="cookies-dis">Cookies must be enabled</p>
-	<p class="msg" id="must-log">You must be logged in to reserve a seat</p>
-	<p class="msg" id="buysucc">Purchase ended succesfully!</p>
-	<p class="msg" id="buyerr">Someone bought your seats</p>
-	<p class="msg" id="reservesucc">Seat has been reserved</p>
-	<p class="msg" id="reserveerr">Seat can't be reserved because someone bought it</p>
 	<?php
 }
 
@@ -123,20 +118,22 @@ function loadMapForVisitor(){
 				}
 				mysqli_stmt_bind_result($stmt, $status);
 				mysqli_stmt_fetch($stmt);
-				echo "<td class=\"seat\" onclick=\"errMessageVisitor()\" id=\"$stringId\">";
-				echo "$stringId";
-				echo "</td>";
+				$function = "errMessageVisitor()";
 				if($status == null){
 					$color = "lightgreen";
 				}
 				else if($status == 'P'){
 					$color = "red";
+					$function = "null";
 					$purchased_seats++;
 				}
 				else if($status == 'R'){
 					$color = "orange";
 					$reserved_seats++;
 				}
+				echo "<td class=\"seat\" onclick=$function id=\"$stringId\">";
+				echo "$stringId";
+				echo "</td>";
 				echo "<script>changeColor($stringId, \"$color\")</script>";
 			}
 			echo "</tr>";

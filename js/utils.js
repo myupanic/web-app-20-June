@@ -37,6 +37,9 @@ function checkSeat(cell){
             }
             else{
                 window.cellsToBook--;
+                if(this.responseText != "lightgreen"){
+                    printMessage("reserveerr");
+                }
             }
             changeColor(cell, this.responseText);
         }
@@ -77,7 +80,8 @@ function reload(){
 
 function errMessageVisitor(){
     $(document).ready(function(){
-        $("#must-log").css("display", "block");
+        $("#must-log").css("margin-top", "50px");
+        $("#must-log").css("display", "inline-block");
     });
 }
 
@@ -99,7 +103,16 @@ function testCookies(){
 }
 
 function printMessage(msg){
+    if(msg.id == null)
+        msg.id = msg;
     $(document).ready(function(){
+        if(msg.id.includes("err")){
+            bgColor = "red";
+        }
+        else{
+            bgColor = "green";
+        }
+        $("#" + msg.id).css("background-color", bgColor);
         $("#" + msg.id).css("display", "inline-block");
     });
 }

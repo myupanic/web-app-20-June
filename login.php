@@ -42,23 +42,21 @@
 <div class="main">
     <form method="POST" action="login_post.php">	
         <p class="errorMsg"><?php echo $errorText;?></p>		
-			<label>Username
+			<label>Username</label>
 			<input 
 						id="username" 
 						type="email" 
 						name="username"
-						placeholder="something@domain.com" 
 						required
 						oninput="enableDisableSubmit()"
-			></label><br><br>
-			<label>Password
+			><br><br>
+			<label>Password</label>
 			<input 
 						id="psw1"
 						type="password" 
 						name="psw"
-						placeholder="***************"
 						required
-			></label><br>
+			><br>
 			<input type="submit" id="submit" value="Login" class="button">			
     </form>
 </div>

@@ -41,27 +41,24 @@
 
 <div class="main">
     <form method="POST" action="signup_post.php">			
-			<label>Insert email     <input 
+			<label>Insert email</label>     <input 
 									id="username" 
 									type="email" 
 									name="username"
-									placeholder="something@domain.com" 
 									required
-									oninput="signUpCheckPswConstraints()"></label><br><br>
-			<label>Insert a password     <input 
+									oninput="signUpCheckPswConstraints()"><br><br>
+			<label>Insert a password</label>     <input 
 									id="psw1"
 									type="password" 
 									name="psw1"
-									placeholder="***************"
 									required
-									oninput="signUpCheckPswConstraints()"></label><br><br>
-      <label>Repeat the password     <input 
+									oninput="signUpCheckPswConstraints()"><br><br>
+      <label>Repeat the password</label>     <input 
 									id="psw2"
 									type="password" 
 									name="psw2"
-									placeholder="***************"
 									required
-									oninput="signUpCheckPswConstraints()"></label><br>
+									oninput="signUpCheckPswConstraints()"><br>
 			<div class="message">
 			<p id="message">Password must contain at least one lower-case alphabetic character,<br> and at least one
 							other character that is either alphabetical uppercase or numeric. </p>

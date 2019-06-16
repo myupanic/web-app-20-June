@@ -25,6 +25,9 @@
   </div>
 </div>
 <div class="main">
+<div class="hello-user">
+<p class="msg" id="must-log">You must be logged in to reserve a seat</p>
+</div>
     <div class="map"> 
         <?php
             loadMapForVisitor();

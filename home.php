@@ -8,7 +8,7 @@
     }
     if(isset($_COOKIE['time'])){
         $time = $_COOKIE['time'];
-        if($time > $timeout + time()){
+        if($time < time() - $timeout){
             logout();
             redirect("index.php");
         }
@@ -37,7 +37,11 @@
 </div>
 <div class="main">
 <div class="hello-user">
-<?php $user = $_SESSION['user']; echo "<p>Hello, $user</p>";?>
+<?php $user = $_SESSION['user']; echo "<p style=\"margin-bottom:0px\">Hello, $user</p>";?>
+<p class="msg" id="buysucc">Purchase ended succesfully!</p>
+<p class="msg" id="buyerr">Someone bought your seats</p>
+<p class="msg" id="reservesucc">Seat has been reserved</p>
+<p class="msg" id="reserveerr">Seat can't be reserved because someone bought it</p>
 </div>
     <div class="map">
         <?php

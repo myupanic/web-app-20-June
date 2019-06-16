@@ -75,8 +75,6 @@ function login($username, $psw){
 		}
 		mysqli_stmt_bind_result($stmt, $stored);
 		mysqli_stmt_fetch($stmt);	
-		echo $stored;
-		var_dump($stored);
 		$res=password_verify($psw, $stored);
 		if($res != 1){
 			return false;
