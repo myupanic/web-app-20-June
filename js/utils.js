@@ -33,6 +33,7 @@ function checkSeat(cell){
             //console.log(this.responseText);
             if(this.responseText == "yellow"){
                 window.cellsToBook++;
+                printMessage("reservesucc");
             }
             else{
                 window.cellsToBook--;
@@ -59,10 +60,11 @@ function buy(){
         if (this.readyState == 4 && this.status == 200) {
             window.cellsToBook = 0;
             if(this.responseText == "error"){
-                window.open("home.php?msg=error", "_parent");
+                window.open("home.php?msg=buyerr", "_parent");
             }
-            console.log("buy: " + window.cellsToBook);
-            reload();
+            else{
+                window.open("home.php?msg=buysucc", "_parent");
+            }
         }
     };
     AjaxReq.open("GET", "book.php?buy=1" + "&ncells=" + window.cellsToBook, true);
@@ -73,14 +75,31 @@ function reload(){
     window.open("home.php", "_parent");
 }
 
+function errMessageVisitor(){
+    $(document).ready(function(){
+        $("#must-log").css("display", "block");
+    });
+}
+
 function testCookies(){
     document.cookie = 'cookietest=1';
     var cookiesEnabled = document.cookie.indexOf('cookietest=') !== -1;
     document.cookie = 'cookietest=1; expires=Thu, 01-Jan-1970 00:00:01 GMT';
     if(!cookiesEnabled){
         $(document).ready(function(){
-            $("#main").css("display", "none");
-            $("#cookies-dis").css("display", "block");
+            $(".main").css("display", "none");
+            $("#cookies-dis").css("display", "inline-block");
         });
     }
+    else{
+        $(document).ready(function(){
+            $(".main").css("display", "block");
+        });
+    }
+}
+
+function printMessage(msg){
+    $(document).ready(function(){
+        $("#" + msg.id).css("display", "inline-block");
+    });
 }

@@ -16,10 +16,6 @@
             setcookie("time", time(), 0, "/");
         }
     }
-    $errorText = "";
-    if(isset($_GET['msg'])){
-		$errorText="An error occurred while purchasing seats, try again";
-    }
 
 ?>
 <!DOCTYPE html>
@@ -45,7 +41,10 @@
 </div>
     <div class="map">
         <?php
-            echo "<p>$errorText</p>";
+            if(isset($_GET['msg'])){
+                $error_type = $_GET['msg'];
+                echo "<script>printMessage($error_type)</script>";
+            }
             loadMap();
         ?>
         <input type="submit" id="update" value="Update" class="button" onclick="reload()">	

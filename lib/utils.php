@@ -15,21 +15,25 @@ ini_set('display_startup_errors', TRUE);
 
 
 function loadHeader(){
-	echo "<noscript>
-    <p style=\"margin-top: 100px; margin-left: 200px\">Javascript must be enabled.</p>
-		</noscript>";
-	echo "<link href='https://fonts.googleapis.com/css?family=Bad Script' rel='stylesheet'>";
-	echo "<link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>";
-	echo "<div class=\"header\">";
-	echo "<h1>Pink Airways<img src=\"images/logo.png\"></img></h1>";
-	echo "</div>";
-	echo "<script>
-	testCookies();
-	$(document).ready(function () {
-	  $(\".main\").css(\"display\", \"block\");
-	});
-	</script>";
-	echo "<p style=\"margin-top: 100px; margin-left: 200px; display: none\" id=\"cookies-dis\">Cookies must be enabled</p>";
+	?>
+	<noscript>
+    <p class="err-msg" style="display: block">Javascript must be enabled</p>
+	</noscript>
+	<link href='https://fonts.googleapis.com/css?family=Bad Script' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+	<div class="header">
+	<h1>Pink Airways<img src="images/logo.png"></img></h1>
+	</div>
+	<script>
+	testCookies()
+	</script>
+	<p class="err-msg" id="cookies-dis">Cookies must be enabled</p>
+	<p class="msg" id="must-log">You must be logged in to reserve a seat</p>
+	<p class="msg" id="buysucc">Purchase ended succesfully!</p>
+	<p class="msg" id="buyerr">Someone bought your seats</p>
+	<p class="msg" id="reservesucc">Seat has been reserved</p>
+	<p class="msg" id="reserveerr">Seat can't be reserved because someone bought it</p>
+	<?php
 }
 
 function redirect($location){
@@ -119,7 +123,7 @@ function loadMapForVisitor(){
 				}
 				mysqli_stmt_bind_result($stmt, $status);
 				mysqli_stmt_fetch($stmt);
-				echo "<td class=\"seat\" id=\"$stringId\">";
+				echo "<td class=\"seat\" onclick=\"errMessageVisitor()\" id=\"$stringId\">";
 				echo "$stringId";
 				echo "</td>";
 				if($status == null){

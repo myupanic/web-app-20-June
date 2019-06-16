@@ -13,11 +13,11 @@ body {
 
 .header {
     width: 100%;
-    height: 135px;
-    font-size: 22px;
+    height: 120px;
+    font-size: 20px;
     font-family: "Bad Script";
     text-shadow: 2px 2px 3px rgb(211, 76, 193);
-    padding-top: 15px;
+    padding-top: 10px;
     color: white;
     background-color: rgb(230, 180, 213);
     text-align: center;
@@ -72,9 +72,9 @@ body {
 
 .main {
     margin-left: 300px; /* same of sidenav */
-    padding-top: 300px;
-    padding-bottom: 60px;
-    font-size: 22px; 
+    margin-top: 200px;
+    margin-bottom: 60px;
+    font-size: 20px; 
     color: hotpink;
     text-align: center;
     height: 100%;
@@ -84,9 +84,9 @@ body {
 
 .hello-user {
     top: 0;
-    padding-top: 180px;
+    padding-top: 120px;
     padding-bottom: 15px;
-    width: 525px; /* same as map */
+    width: 500px; /* same as map */
     font-size: 28px; 
     color: hotpink;
     position: absolute;
@@ -95,7 +95,7 @@ body {
 
 img{
     display: inline-flex;
-    width: 135px;
+    width: 120px;
 }
 
 input {
@@ -150,15 +150,16 @@ form {
 
 .map {
     display: inline-block;
-    width: 525px;
-    height: 840px;
+    width: 500px;
+    height: 790px;
     background-color: rgba(255,255,255,0.8);
     border-radius: 10px;
     text-align: center;
+    margin-bottom: 30px;
 }
 
 table {
-    font-size : 15px;
+    font-size : 14px;
     width: 100%;
     border-spacing: 15px;
 }
@@ -178,7 +179,34 @@ table {
 }
 
 .counter{
-    font-size: 24px;
+    font-size: 18px;
     width: 100%;
     border-spacing: 15px;
+}
+
+.msg {
+    top: 0;
+    margin-top: 320px;
+    margin-left: 360px;
+    padding: 10px 10px 10px 10px;
+    background-color: rgba(255, 0, 0, 0.8);
+    border-radius: 5px;
+    font-size: 24px; 
+    color: rgb(255, 255, 255);
+    position: absolute;
+    display: none;
+}
+
+.err-msg {
+    width: 500px;
+    margin-top: 320px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 40%;
+    background-color: rgba(255, 0, 0, 0.8);
+    border-radius: 5px;
+    font-size: 28px; 
+    color: rgb(255, 255, 255);
+    display: none;
+    text-align: center;
 }
