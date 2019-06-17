@@ -37,10 +37,9 @@
 	<a class="active" href="signup.php">Sign up</a>
 </div>
 </div>
-
-
 <div class="main">
-    <form method="POST" action="signup_post.php">			
+    <form method="POST" action="signup_post.php">	
+	<p><?php echo $errorText;?></p>				
 			<label>Insert email</label>     <input 
 									id="username" 
 									type="email" 

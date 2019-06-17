@@ -18,10 +18,10 @@ function checkEmail($username){
 }
 
 // Checks if the username is already in the db
-function checkUsername($username){
+function checkUsername($username){ 
 	$conn=connectDB();	
 	$res=null;
-	$query = "SELECT * FROM user WHERE Username=?";
+	$query = "SELECT * FROM user WHERE Username=? FOR UPDATE";
 	if ($stmt = mysqli_prepare($conn, $query)) {
 		mysqli_stmt_bind_param($stmt, "s", $username);
 		if(!mysqli_stmt_execute($stmt)){
@@ -67,7 +67,7 @@ function insertUser($username, $psw){
 
 function login($username, $psw){
 	$conn=connectDB();
-    $query = "SELECT Password FROM user WHERE Username=?";
+    $query = "SELECT Password FROM user WHERE Username=? FOR UPDATE";
 	if ($stmt = mysqli_prepare($conn, $query)) {
 		mysqli_stmt_bind_param($stmt, "s", $username);
 		if(!mysqli_stmt_execute($stmt)){
@@ -83,7 +83,7 @@ function login($username, $psw){
 	}else {
 		return false;
 	}
-	setcookie("time", time(), 0, "/");
+	$_SESSION['time'] = time();
 	mysqli_close($conn);
 	return true;
 }

@@ -30,18 +30,25 @@ function checkSeat(cell){
     AjaxReq = new XMLHttpRequest();
     AjaxReq.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            //console.log(this.responseText);
-            if(this.responseText == "yellow"){
-                window.cellsToBook++;
-                printMessage("reservesucc");
+            if(this.responseText == "logout"){
+                window.open("login.php?msg=logout", "_parent");
             }
             else{
-                window.cellsToBook--;
-                if(this.responseText != "lightgreen"){
-                    printMessage("reserveerr");
+                if(this.responseText == "yellow"){
+                    window.cellsToBook++;
+                    printMessage("reservesucc");
                 }
+                else{
+                    window.cellsToBook--;
+                    if(this.responseText != "lightgreen"){
+                        printMessage("reserveerr");
+                    }
+                    else{
+                        printMessage("removed");
+                    }
+                }
+                changeColor(cell, this.responseText);
             }
-            changeColor(cell, this.responseText);
         }
     };
     AjaxReq.open("GET", "book.php?cell=" + cell.id, true);
@@ -61,16 +68,18 @@ function buy(){
     AjaxReq = new XMLHttpRequest();
     AjaxReq.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            window.cellsToBook = 0;
-            if(this.responseText == "error"){
-                window.open("home.php?msg=buyerr", "_parent");
-            }
-            else{
-                window.open("home.php?msg=buysucc", "_parent");
+            if(window.cellsToBook != 0){
+                window.cellsToBook = 0;
+                if(this.responseText == "error"){
+                    window.open("home.php?msg=buyerr", "_parent");
+                }
+                else{
+                    window.open("home.php?msg=buysucc", "_parent");
+                }
             }
         }
     };
-    AjaxReq.open("GET", "book.php?buy=1" + "&ncells=" + window.cellsToBook, true);
+    AjaxReq.open("POST", "book.php?buy=1" + "&ncells=" + window.cellsToBook, true);
     AjaxReq.send();
 }
 
@@ -103,16 +112,22 @@ function testCookies(){
 }
 
 function printMessage(msg){
-    if(msg.id == null)
-        msg.id = msg;
+    var strMess = "";
     $(document).ready(function(){
-        if(msg.id.includes("err")){
+        if(msg.id == undefined){
+            strMess = msg;
+        }
+        else{
+            strMess = msg.id;
+        }
+        if(strMess.includes("err")){
             bgColor = "red";
         }
         else{
             bgColor = "green";
         }
-        $("#" + msg.id).css("background-color", bgColor);
-        $("#" + msg.id).css("display", "inline-block");
+        $(".msg").css("display", "none");
+        $("#" + strMess).css("background-color", bgColor);
+        $("#" + strMess).css("display", "inline-block");
     });
 }

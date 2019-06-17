@@ -1,19 +1,19 @@
 <?php
-    include 'lib/utils.php';
     include 'lib/check.php';
+    include 'lib/utils.php';
     global $timeout;
     session_start();
     if(!isset($_SESSION['user'])){
         redirect("index.php");
     }
-    if(isset($_COOKIE['time'])){
-        $time = $_COOKIE['time'];
+    if(isset($_SESSION['time'])){
+        $time = $_SESSION['time'];
         if($time < time() - $timeout){
             logout();
             redirect("index.php");
         }
         else{
-            setcookie("time", time(), 0, "/");
+            $_SESSION['time'] = time();
         }
     }
 
@@ -41,7 +41,8 @@
 <p class="msg" id="buysucc">Purchase ended succesfully!</p>
 <p class="msg" id="buyerr">Someone bought your seats</p>
 <p class="msg" id="reservesucc">Seat has been reserved</p>
-<p class="msg" id="reserveerr">Seat can't be reserved because someone bought it</p>
+<p class="msg" id="reserveerr">Seat can't be reserved, someone bought it</p>
+<p class="msg" id="removed">Reservation has been succesfully removed</p>
 </div>
     <div class="map">
         <?php

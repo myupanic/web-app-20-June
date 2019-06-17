@@ -1,9 +1,21 @@
 <?php
     include 'lib/utils.php';
+    include 'lib/check.php';
     session_start();
 
     $conn = connectDB();
 
+    if(isset($_SESSION['time'])){
+        $time = $_SESSION['time'];
+        if($time < time() - $timeout){
+            logout();
+            echo "logout";
+            exit();
+        }
+        else{
+            $_SESSION['time'] = time();
+        }
+    }
 
     if(isset($_REQUEST['buy'])){
         if(purchaseSeats() == false){
@@ -13,18 +25,20 @@
     else if(isset($_REQUEST['cell'])){
         checkStatusSeat();
     }
+
     mysqli_close($conn);
 
     function checkStatusSeat(){
         global $conn;
         $user_logged = $_SESSION['user'];
         $id = $_REQUEST['cell'];
-        $query = "SELECT Status, Username FROM booking WHERE SeatId=?";
         $conn->autocommit(FALSE);
         $conn->begin_transaction();
+        $query = "SELECT Status, Username FROM booking WHERE SeatId=? FOR UPDATE";
         if ($stmt = mysqli_prepare($conn, $query)) {
             mysqli_stmt_bind_param($stmt, "s", $id);
             if(!mysqli_stmt_execute($stmt)){
+                $conn->rollback();
                 return false;
             }
             mysqli_stmt_bind_result($stmt, $status, $user);
@@ -49,6 +63,7 @@
             echo $color;
         }
         else{
+            $conn->rollback();
             return false;
         }
         return true;
@@ -66,12 +81,14 @@
         if ($stmt = mysqli_prepare($conn, $query)) {
             mysqli_stmt_bind_param($stmt, "ssss", $id, $status_new, $user_logged, $user_logged);
             if(!mysqli_stmt_execute($stmt)){
+                $conn->rollback();
                 return false;
             }
             mysqli_stmt_close($stmt);
             $conn->commit();
         }
         else{
+            $conn->rollback();
             return false;
         }
         return true;
@@ -87,12 +104,14 @@
         if ($stmt = mysqli_prepare($conn, $query)) {
             mysqli_stmt_bind_param($stmt, "ss", $id, $user_logged);
             if(!mysqli_stmt_execute($stmt)){
+                $conn->rollback();
                 return false;
             }
             mysqli_stmt_close($stmt);
             $conn->commit();
         }
         else{
+            $conn->rollback();
             return false;
         }
         return true;
@@ -108,6 +127,7 @@
         if ($stmt = mysqli_prepare($conn, $query)) {
             mysqli_stmt_bind_param($stmt, "s", $user_logged);
             if(!mysqli_stmt_execute($stmt)){
+                $conn->rollback();
                 return false;
             }
             mysqli_stmt_bind_result($stmt, $n_reserved);
@@ -118,6 +138,7 @@
                 if ($stmt = mysqli_prepare($conn, $query)) {
                     mysqli_stmt_bind_param($stmt, "s", $user_logged);
                     if(!mysqli_stmt_execute($stmt)){
+                        $conn->rollback();
                         return false;
                     }
                     mysqli_stmt_close($stmt);
@@ -127,6 +148,7 @@
             }
         }
         else{
+            $conn->rollback();
             return false;
         }
         $query = "UPDATE booking SET Status=? WHERE Username=?";
@@ -134,12 +156,14 @@
         if ($stmt = mysqli_prepare($conn, $query)) {
             mysqli_stmt_bind_param($stmt, "ss", $status_new, $user_logged);
             if(!mysqli_stmt_execute($stmt)){
+                $conn->rollback();
                 return false;
             }
             mysqli_stmt_close($stmt);
             $conn->commit();
         }
         else{
+            $conn->rollback();
             return false;
         }
         return true;

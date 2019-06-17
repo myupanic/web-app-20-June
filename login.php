@@ -41,7 +41,7 @@
 
 <div class="main">
     <form method="POST" action="login_post.php">	
-        <p class="errorMsg"><?php echo $errorText;?></p>		
+        <p><?php echo $errorText;?></p>		
 			<label>Username</label>
 			<input 
 						id="username" 
