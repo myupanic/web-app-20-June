@@ -4,7 +4,7 @@
 	session_start();
 	
 	// If logged user, redirect to home
-	if(isset($_SESSION['user'])){
+	if(isset($_SESSION['265444_user'])){
 		redirect("home.php");
 	}
 	httpsRedirect();
@@ -16,8 +16,6 @@
 		$errorText="";
     }
     
-    echo $errorText;
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,7 +43,9 @@
 									type="email" 
 									name="username"
 									required
-									oninput="signUpCheckPswConstraints()"><br><br>
+									oninput="signUpCheckPswConstraints()">
+									<p id="notvalid" class="message">Not valid email address</p>
+									<br>
 			<label>Insert a password</label>     <input 
 									id="psw1"
 									type="password" 
@@ -58,10 +58,9 @@
 									name="psw2"
 									required
 									oninput="signUpCheckPswConstraints()"><br>
-			<div class="message">
-			<p id="message">Password must contain at least one lower-case alphabetic character,<br> and at least one
+			<p id="constr" class="message">Password must contain at least one lower-case alphabetic character,<br> and at least one
 							other character that is either alphabetical uppercase or numeric. </p>
-			</div>
+			<p id="pswmatch" class="message">The two passwords do not match.</p>
 			<input type="submit" id="submit" value="Sign up" class="button">			
     </form>
 </div>

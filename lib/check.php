@@ -83,7 +83,7 @@ function login($username, $psw){
 	}else {
 		return false;
 	}
-	$_SESSION['time'] = time();
+	$_SESSION['265444_time'] = time();
 	mysqli_close($conn);
 	return true;
 }

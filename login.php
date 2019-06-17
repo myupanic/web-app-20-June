@@ -4,7 +4,7 @@
 	session_start();
 	
 	// If logged user, redirect to home
-	if(isset($_SESSION['user'])){
+	if(isset($_SESSION['265444_user'])){
 		redirect("home.php");
 	}
 	httpsRedirect();

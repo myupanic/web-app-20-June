@@ -75,7 +75,7 @@ function loadMap(){
 				else if($status == 'P'){
 					$color = "red";
 				}
-				else if($status == 'R' && $user != $_SESSION['user']){
+				else if($status == 'R' && $user != $_SESSION['265444_user']){
 					$color = "orange";
 				}
 				else{

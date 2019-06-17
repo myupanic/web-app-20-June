@@ -5,7 +5,7 @@
 	
 	/*
 	// If logged user rediret
-	if(isset($_SESSION['user'])){
+	if(isset($_SESSION['265444_user'])){
 		redirect("home.php");
 	}
 	*/
@@ -17,8 +17,8 @@
 	// Check if the password matches the username
 	if(login($username, $psw)){
 		$_SESSION=array();
-		$_SESSION['user']=$username;	
-		$_SESSION['time']=time();
+		$_SESSION['265444_user']=$username;	
+		$_SESSION['265444_time']=time();
     	redirect("home.php");
 	}
 	// Error

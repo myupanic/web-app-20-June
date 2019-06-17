@@ -5,15 +5,15 @@
 
     $conn = connectDB();
 
-    if(isset($_SESSION['time'])){
-        $time = $_SESSION['time'];
+    if(isset($_SESSION['265444_time'])){
+        $time = $_SESSION['265444_time'];
         if($time < time() - $timeout){
             logout();
             echo "logout";
             exit();
         }
         else{
-            $_SESSION['time'] = time();
+            $_SESSION['265444_time'] = time();
         }
     }
 
@@ -30,7 +30,7 @@
 
     function checkStatusSeat(){
         global $conn;
-        $user_logged = $_SESSION['user'];
+        $user_logged = $_SESSION['265444_user'];
         $id = $_REQUEST['cell'];
         $conn->autocommit(FALSE);
         $conn->begin_transaction();
@@ -72,7 +72,7 @@
     function reserve(){
         global $conn;
         $id = $_REQUEST['cell'];
-        $user_logged = $_SESSION['user'];
+        $user_logged = $_SESSION['265444_user'];
         $conn->autocommit(FALSE);
         $conn->begin_transaction();
         $query = "INSERT INTO booking(SeatId, Status, Username) VALUES (?, ?, ?)
@@ -97,7 +97,7 @@
     function removeReservation(){
         global $conn;
         $id = $_REQUEST['cell'];
-        $user_logged = $_SESSION['user'];
+        $user_logged = $_SESSION['265444_user'];
         $conn->autocommit(FALSE);
         $conn->begin_transaction();
         $query = "DELETE FROM booking WHERE SeatId=? AND Username=?";
@@ -120,7 +120,7 @@
     function purchaseSeats(){
         global $conn;
         $n_cells = $_REQUEST['ncells'];
-        $user_logged = $_SESSION['user'];
+        $user_logged = $_SESSION['265444_user'];
         $conn->autocommit(FALSE);
         $conn->begin_transaction();
         $query = "SELECT COUNT(*) FROM booking WHERE Username=? AND Status='R'";

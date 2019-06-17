@@ -3,17 +3,17 @@
     include 'lib/utils.php';
     global $timeout;
     session_start();
-    if(!isset($_SESSION['user'])){
+    if(!isset($_SESSION['265444_user'])){
         redirect("index.php");
     }
-    if(isset($_SESSION['time'])){
-        $time = $_SESSION['time'];
+    if(isset($_SESSION['265444_time'])){
+        $time = $_SESSION['265444_time'];
         if($time < time() - $timeout){
             logout();
-            redirect("index.php");
+            redirect("login.php?msg=timeout");
         }
         else{
-            $_SESSION['time'] = time();
+            $_SESSION['265444_time'] = time();
         }
     }
 
@@ -37,7 +37,7 @@
 </div>
 <div class="main">
 <div class="hello-user">
-<?php $user = $_SESSION['user']; echo "<p style=\"margin-bottom:0px\">Hello, $user</p>";?>
+<?php $user = $_SESSION['265444_user']; echo "<p style=\"margin-bottom:0px\">Hello, $user</p>";?>
 <p class="msg" id="buysucc">Purchase ended succesfully!</p>
 <p class="msg" id="buyerr">Someone bought your seats</p>
 <p class="msg" id="reservesucc">Seat has been reserved</p>

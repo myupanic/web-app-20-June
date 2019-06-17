@@ -17,12 +17,28 @@ function signUpCheckPswConstraints(){
     var passwordOne = document.getElementById("psw1").value;
     var passwordTwo = document.getElementById("psw2").value;
     if(passwordOne.match(regexPsw) != null && passwordOne == passwordTwo && usernameMail.match(regexMail) != null){
-        document.getElementById("submit").disabled = false;
-        document.getElementById("message").style.display = "none";
+        $("#submit").removeAttr("disabled");
     }
     else{
-        document.getElementById("message").style.display = "block";
-        document.getElementById("submit").disabled = true;
+        $("#submit").attr("disabled", "true");
+    }
+    if(passwordOne.match(regexPsw) == null){
+        $("#constr").css("display", "block");
+    }
+    else{
+        $("#constr").css("display", "none");
+    }
+    if(passwordOne != passwordTwo){
+        $("#pswmatch").css("display", "block");
+    }
+    else{
+        $("#pswmatch").css("display", "none");
+    }
+    if(usernameMail.match(regexMail) == null){
+        $("#notvalid").css("display", "block");
+    }
+    else{
+       $("#notvalid").css("display", "none");
     }
 }
 

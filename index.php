@@ -2,7 +2,7 @@
   include 'lib/utils.php';
   include 'lib/check.php';
 
-  if(isset($_SESSION['user'])){
+  if(isset($_SESSION['265444_user'])){
     redirect("home.php");
   }
 ?>
