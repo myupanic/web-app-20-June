@@ -1,21 +1,21 @@
 
 function enableDisableSubmit() {
     var regexMail = /\S+@\S+\.\S+/;
-    var usernameMail = document.getElementById("username").value;
+    var usernameMail = $("#username").val();
     if(usernameMail.match(regexMail) != null){
-        document.getElementById("submit").disabled = false;
+        $("#submit").removeAttr("disabled");
     }
     else{
-        document.getElementById("submit").disabled = true;
+        $("#submit").attr("disabled", "true");
     }
 }
 
 function signUpCheckPswConstraints(){
     var regexMail = /\S+@\S+\.\S+/;
-    var usernameMail = document.getElementById("username").value;
+    var usernameMail = $("#username").val();
     var regexPsw = /.*[a-z].*[A-Z0-9].*|.*[A-Z0-9].*[a-z].*/;
-    var passwordOne = document.getElementById("psw1").value;
-    var passwordTwo = document.getElementById("psw2").value;
+    var passwordOne = $("#psw1").val();
+    var passwordTwo = $("#psw2").val();
     if(passwordOne.match(regexPsw) != null && passwordOne == passwordTwo && usernameMail.match(regexMail) != null){
         $("#submit").removeAttr("disabled");
     }
@@ -63,13 +63,13 @@ function checkSeat(cell){
                         printMessage("removed");
                     }
                 }
-                console.log(window.cellsToBook);
                 changeColor(cell, this.responseText);
             }
         }
     };
-    AjaxReq.open("GET", "book.php?cell=" + cell.id, true);
-    AjaxReq.send();
+    AjaxReq.open("POST", "book.php", true);
+    AjaxReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    AjaxReq.send("cell=" + cell.id);
 }
 
 function changeColor(cell, color){
@@ -96,8 +96,9 @@ function buy(){
             }
         }
     };
-    AjaxReq.open("POST", "book.php?buy=1" + "&ncells=" + window.cellsToBook, true);
-    AjaxReq.send();
+    AjaxReq.open("POST", "book.php", true);
+    AjaxReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    AjaxReq.send("buy=1&ncells=" + window.cellsToBook);
 }
 
 function reload(){

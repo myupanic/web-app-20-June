@@ -6,6 +6,7 @@
     if(!isset($_SESSION['265444_user'])){
         redirect("index.php");
     }
+    httpsRedirect();
     if(isset($_SESSION['265444_time'])){
         $time = $_SESSION['265444_time'];
         if($time < time() - $timeout){

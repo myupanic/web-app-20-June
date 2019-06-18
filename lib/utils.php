@@ -5,9 +5,7 @@ $dbuser  = 's265444';
 $dbpass  = 'caviston';     
 $rows = 10;
 $columns = 6;
-$timeout = 1200;
-
-
+$timeout = 120;
 
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
@@ -160,5 +158,13 @@ function loadMapForVisitor(){
 	echo "<td>$free_seats</td>";
 	echo "</tr>";
 	echo "</table>";
+}
+
+function httpsRedirect(){
+	if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS']==='off'){
+		$redirect_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+	    header("Location: $redirect_url", true, 301);
+	    exit();
+	}	
 }
 ?>

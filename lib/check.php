@@ -1,18 +1,14 @@
 <?php
 
-// SIGNING UP FUNCTIONS
-// Check the correctness of the password in the registration form
 function checkPsw($psw1, $psw2){
 	return strlen($psw1)>=2 && strlen($psw1)<=255 && checkPswContent($psw1) && $psw1==$psw2;	
 }
 
-// Checks that the password content is correct (at least one lower case char and an upper case char or a digit)
 function checkPswContent($psw){
 	$pattern='/.*[a-z].*[A-Z0-9].*|.*[A-Z0-9].*[a-z].*/';
 	return preg_match($pattern, $psw);	
 }
 
-// Check correctness of the username (a valid email address)
 function checkEmail($username){
 	return filter_var($username, FILTER_VALIDATE_EMAIL) && strlen($username)<=255 && htmlentities($username)==$username;
 }
@@ -88,7 +84,6 @@ function login($username, $psw){
 	return true;
 }
 
-// Does the logout, destroying cookies and session
 function logout(){
 	if (ini_get("session.use_cookies")) {
         $params = session_get_cookie_params();
@@ -100,12 +95,5 @@ function logout(){
 	session_destroy();
 }
 
-function httpsRedirect(){
-	if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS']==='off'){
-		$redirect_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-	    header("Location: $redirect_url", true, 301);
-	    exit();
-	}	
-}
 
 ?>
