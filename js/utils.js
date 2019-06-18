@@ -63,6 +63,7 @@ function checkSeat(cell){
                         printMessage("removed");
                     }
                 }
+                console.log(window.cellsToBook);
                 changeColor(cell, this.responseText);
             }
         }

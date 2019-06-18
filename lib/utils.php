@@ -5,7 +5,7 @@ $dbuser  = 's265444';
 $dbpass  = 'caviston';     
 $rows = 10;
 $columns = 6;
-$timeout = 120;
+$timeout = 1200;
 
 
 
