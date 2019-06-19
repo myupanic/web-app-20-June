@@ -12,7 +12,6 @@
 	$psw1=$_POST['psw1'];
 	$psw2=$_POST['psw2'];
 	
-	// If the fields of the form are correct
 	if(checkEmail($username) && checkPsw($psw1, $psw2) && checkUsername($username)==0) {
 		if(insertUser($username, $psw1)){
     		$_SESSION=array();

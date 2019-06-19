@@ -9,15 +9,15 @@
 	}
 	httpsRedirect();
 	
-	// If there has been an error
-	$errorText="";
+	$errorTxt="";
 	if (isset($_GET['msg'])){
-		if($_GET['msg']=='error'){
-			$errorText="Wrong username and/or password, try again";
-		}else if($_GET['msg']=='timeout'){
-			$errorText="The authentication time has expired: login to continue";			
+		if($_GET['msg'] == 'error'){
+			$errorTxt = "Wrong username and/or password, try again";
 		}
-	}	
+		else if($_GET['msg'] == 'timeout'){
+			$errorTxt = "The authentication time has expired: login to continue";			
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,22 +41,13 @@
 
 <div class="main">
     <form method="POST" action="login_post.php">	
-        <p><?php echo $errorText;?></p>		
+        <p><?php echo $errorTxt;?></p>		
 			<label>Username</label>
-			<input 
-						id="username" 
-						type="email" 
-						name="username"
-						required
-						oninput="enableDisableSubmit()"
-			><br><br>
+			<input id="username" type="email" name="username" required oninput="enableDisableSubmit()">
+			<br><br>
 			<label>Password</label>
-			<input 
-						id="psw1"
-						type="password" 
-						name="psw"
-						required
-			><br>
+			<input id="psw1" type="password" name="psw" required>
+			<br>
 			<input type="submit" id="submit" value="Login" class="button">			
     </form>
 </div>

@@ -3,14 +3,11 @@
     include 'lib/check.php';
 	session_start();
 	
-	/*
 	// If logged user rediret
 	if(isset($_SESSION['265444_user'])){
 		redirect("home.php");
 	}
-	*/
 		
-	// Retrieve parameters
 	$username=$_POST['username'];
 	$psw=$_POST['psw'];
 	
