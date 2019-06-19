@@ -101,7 +101,7 @@ function loadMapForVisitor(){
 	$conn = connectDB();
 	$query = "SELECT Status FROM booking WHERE SeatId=?";
 	if ($stmt = mysqli_prepare($conn, $query)) {
-		echo "<p></p><table>";
+		echo "<table>";
 		for ($i = 0; $i < $rows; $i++) {
 			echo "<tr>";
 			for($j = 0; $j < $columns; $j++){

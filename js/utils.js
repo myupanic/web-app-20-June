@@ -87,6 +87,7 @@ function buy(){
         if (this.readyState == 4 && this.status == 200) {
             if(window.cellsToBook != 0){
                 window.cellsToBook = 0;
+                console.log(this.responseText);
                 if(this.responseText == "error"){
                     window.open("home.php?msg=buyerr", "_parent");
                 }
@@ -138,7 +139,7 @@ function printMessage(msg){
         else{
             strMess = msg.id;
         }
-        if(strMess.includes("err")){
+        if(strMess.indexOf("err") != -1){
             bgColor = "red";
         }
         else{

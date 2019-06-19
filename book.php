@@ -148,20 +148,36 @@
                             if($_SESSION[$stringId] == 1){
                                  //inserire qui query per vedere se questo 
                                  //posto è presente nel database oppure se è libero   
-                                $query = "SELECT COUNT(*), Username FROM booking WHERE SeatId = ? FOR UPDATE";
+                                $query = "SELECT COUNT(*) FROM booking WHERE SeatId = ? FOR UPDATE";
                                 if($stmt = mysqli_prepare($conn, $query)){
                                     mysqli_stmt_bind_param($stmt, "s", $stringId);
                                     if(!mysqli_stmt_execute($stmt)){
                                         $conn->rollback();
                                         return false;
                                     }
-                                    mysqli_stmt_bind_result($stmt, $is_there, $is_whose);
+                                    mysqli_stmt_bind_result($stmt, $is_there);
                                     mysqli_stmt_fetch($stmt);
                                     mysqli_stmt_close($stmt);
+                                    $query = "SELECT Username FROM booking WHERE SeatId = ? FOR UPDATE";
+                                    if($stmt = mysqli_prepare($conn, $query)){
+                                        mysqli_stmt_bind_param($stmt, "s", $stringId);
+                                        if(!mysqli_stmt_execute($stmt)){
+                                            $conn->rollback();
+                                            return false;
+                                        }
+                                        mysqli_stmt_bind_result($stmt, $is_whose);
+                                        mysqli_stmt_fetch($stmt);
+                                        mysqli_stmt_close($stmt);
+                                    }
+                                    else{
+                                        $conn->rollback();
+                                        return false;
+                                    }
                                     if($is_there != 0 && $is_whose != $user_logged){
                                         $continue = 1;
                                     }
                                     else if($is_there == 0){
+                                        echo "im here";
                                         $query = "INSERT INTO booking(SeatId, Status, Username) VALUES (?, ?, ?)";
                                         $status_new = 'R';
                                         if ($stmt = mysqli_prepare($conn, $query)) {
@@ -179,6 +195,7 @@
                                     }
                                 }
                                 else{
+                                    echo "rollback";
                                     $conn->rollback();
                                     return false;
                                 }
