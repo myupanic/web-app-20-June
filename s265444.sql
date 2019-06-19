@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Giu 14, 2019 alle 12:31
+-- Creato il: Giu 19, 2019 alle 17:11
 -- Versione del server: 10.1.40-MariaDB
 -- Versione PHP: 7.1.29
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `booking`;
 CREATE TABLE `booking` (
-  `SeatId` varchar(2) NOT NULL,
+  `SeatId` varchar(255) NOT NULL,
   `Status` char(1) NOT NULL,
   `Username` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -40,8 +40,12 @@ CREATE TABLE `booking` (
 --
 
 INSERT INTO `booking` (`SeatId`, `Status`, `Username`) VALUES
-('A1', 'P', 'lavita@ci.com'),
-('B1', 'P', 'lavita@ci.com');
+('A4', 'R', 'u1@p.it'),
+('B2', 'P', 'u2@p.it'),
+('B3', 'P', 'u2@p.it'),
+('B4', 'P', 'u2@p.it'),
+('D4', 'R', 'u1@p.it'),
+('F4', 'R', 'u2@p.it');
 
 -- --------------------------------------------------------
 
@@ -60,8 +64,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`Username`, `Password`) VALUES
-('me@me.com', '$2y$10$zLLcpwW6lJNjkApJr91NMuwT3PkC.oXHvzF0JBRLtBu0TWKnVVK9K'),
-('lavita@ci.com', '$2y$10$AUhUHYOGY7lv1zkEERkj4uo2hLOgIA0dNPKJRA6RKSVDF86FR1aJy');
+('u1@p.it', '$2y$10$ybWA.WXfV.Rx3Um6cfl1JujRO7chEOMmBAw8nd9xAnvSCQmjY1wcG'),
+('u2@p.it', '$2y$10$kEV9qKJgomIXzPeDpJ9E5uY.gAWzWCFcd8w8PjA3b.DaqBMxWWGDO');
 
 --
 -- Indici per le tabelle scaricate
@@ -72,6 +76,12 @@ INSERT INTO `user` (`Username`, `Password`) VALUES
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`SeatId`);
+
+--
+-- Indici per le tabelle `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`Username`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
